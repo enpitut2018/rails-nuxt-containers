@@ -4,8 +4,8 @@ FROM node:8.11.3-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
+COPY nuxt/package.json /usr/src/app/
+COPY nuxt/yarn.lock /usr/src/app/
 
 RUN apk update && \
     npm install -g npm && \

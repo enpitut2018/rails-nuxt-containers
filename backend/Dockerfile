@@ -4,7 +4,7 @@ FROM ruby:2.3.3-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY Gemfile* /usr/src/app/
+COPY rails/Gemfile* /usr/src/app/
 
 RUN apk upgrade --no-cache && \
     apk add --update --no-cache \
