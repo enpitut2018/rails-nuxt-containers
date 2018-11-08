@@ -10,7 +10,10 @@ RUN apk upgrade --no-cache && \
     apk add --update --no-cache \
       postgresql-client \
       nodejs \
-      tzdata && \
+      tzdata \
+      sqlite \
+      sqlite-dev \
+      sqlite-libs && \
     apk add --update --no-cache --virtual=build-dependencies \
       build-base \
       curl-dev \
@@ -20,7 +23,14 @@ RUN apk upgrade --no-cache && \
       postgresql-dev \
       ruby-dev \
       yaml-dev \
-      zlib-dev && \
+      zlib-dev \
+      curl && \
+    curl -O "http://dl-4.alpinelinux.org/alpine/edge/community/x86_64/imagemagick6-{6.9.9.47-r0,c%2B%2B-6.9.9.47-r0,dev-6.9.9.47-r0,doc-6.9.9.47-r0,libs-6.9.9.47-r0}.apk" && \
+    apk add --no-cache \
+      imagemagick6-c%2B%2B-6.9.9.47-r0.apk \
+      imagemagick6-dev-6.9.9.47-r0.apk \
+      imagemagick6-libs-6.9.9.47-r0.apk \
+      imagemagick6-6.9.9.47-r0.apk && \
     gem install bundler && \
     bundle install -j4 && \
     apk del build-dependencies
