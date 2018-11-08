@@ -6,7 +6,7 @@ services:
       - ./rails/tmp/db:/var/lib/postgresql/data
   backend:
     build:
-      context: rails
+      context: containers/rails
     command: bundle exec rails s -p 3001 -b '0.0.0.0'
     volumes:
       - ./rails:/usr/src/app
@@ -16,7 +16,7 @@ services:
       - db
   frontend:
     build:
-      context: nuxt
+      context: containers/nuxt
     command: yarn run dev
     volumes:
       - ./nuxt:/usr/src/app
