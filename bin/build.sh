@@ -1,4 +1,4 @@
 #!/bin/bash
 docker-compose build
 docker-compose run backend bundle
-docker-compose run frontnend yarn
+docker-compose run frontend yarn
