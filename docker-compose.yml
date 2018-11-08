@@ -3,22 +3,20 @@ services:
   db:
     image: postgres
     volumes:
-      - ./rails/tmp/db:/var/lib/postgresql/data
+      - ./backend/rails/tmp/db:/var/lib/postgresql/data
   backend:
-    build:
-      context: containers/rails
+    build: ./backend/
     command: bundle exec rails s -p 3001 -b '0.0.0.0'
     volumes:
-      - ./rails:/usr/src/app
+      - ./backend/rails:/usr/src/app
     ports:
       - "3001:3001"
     depends_on:
       - db
   frontend:
-    build:
-      context: containers/nuxt
+    build: ./frontend/
     command: yarn run dev
     volumes:
-      - ./nuxt:/usr/src/app
+      - ./frontend/nuxt:/usr/src/app
     ports:
       - "3000:3000"
