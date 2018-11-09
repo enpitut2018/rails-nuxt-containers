@@ -1,3 +1,6 @@
 [submodule "backned"]
 	path = backend/rails
 	url = git@github.com:enpitut2018/task_driver.git
+[submodule "frontend"]
+	path = frontend/nuxt
+	url = git@github.com:enpitut2018/task_driver_frontend.git
