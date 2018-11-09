@@ -4,6 +4,11 @@ FROM ruby:2.3.3-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+ENV LANG ja_JP.UTF-8
+COPY fonts.conf /root/.config/fontconfig/
+COPY ipag.ttc /root/.local/share/fonts/
+RUN apk add --no-cache fontconfig && fc-cache -fv
+
 COPY rails/Gemfile* /usr/src/app/
 
 RUN apk upgrade --no-cache && \
@@ -13,6 +18,7 @@ RUN apk upgrade --no-cache && \
       tzdata \
       sqlite \
       sqlite-dev \
+      graphviz \
       sqlite-libs && \
     apk add --update --no-cache --virtual=build-dependencies \
       build-base \
