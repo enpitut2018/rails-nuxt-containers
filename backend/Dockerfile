@@ -18,6 +18,7 @@ RUN apk upgrade --no-cache && \
       sqlite \
       sqlite-dev \
       graphviz \
+      tzdata \
       sqlite-libs && \
     apk add --update --no-cache --virtual=build-dependencies \
       build-base \
@@ -29,7 +30,6 @@ RUN apk upgrade --no-cache && \
       ruby-dev \
       yaml-dev \
       zlib-dev \
-      tzdata \
       curl && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     echo "Asia/Tokyo" > /etc/timezone && \
