@@ -8,8 +8,11 @@ COPY nuxt/package.json /usr/src/app/
 COPY nuxt/yarn.lock /usr/src/app/
 
 RUN apk update && \
-    npm install -g npm && \
-    npm install -g vue-cli && \
+	apk add --update --no-cache \
+	tzdata && \
+	cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+	echo "Asia/Tokyo" > /etc/timezone && \
+    npm install -g npm yarn vue-cli && \
     yarn
 
 ENV HOST 0.0.0.0
