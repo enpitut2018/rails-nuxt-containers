@@ -1,15 +1,10 @@
 # a rails env for task-driver
 FROM ruby:2.3.3-alpine
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
 ENV LANG ja_JP.UTF-8
 COPY fonts.conf /root/.config/fontconfig/
 COPY ipag.ttc /root/.local/share/fonts/
 RUN apk add --no-cache fontconfig && fc-cache -fv
-
-COPY rails/Gemfile* /usr/src/app/
 
 RUN apk upgrade --no-cache && \
     apk add --update --no-cache \
@@ -38,9 +33,17 @@ RUN apk upgrade --no-cache && \
       imagemagick6-c%2B%2B-6.9.9.47-r0.apk \
       imagemagick6-dev-6.9.9.47-r0.apk \
       imagemagick6-libs-6.9.9.47-r0.apk \
-      imagemagick6-6.9.9.47-r0.apk && \
-    gem install bundler && \
-    bundle install -j4 && \
-    apk del build-dependencies
+      imagemagick6-6.9.9.47-r0.apk
+
+WORKDIR /tmp
+ADD rails/Gemfile Gemfile
+ADD rails/Gemfile.lock Gemfile.lock
+RUN gem install bundler && \
+    bundle install
+
+RUN apk del build-dependencies
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 COPY . /usr/src/app
